@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  const movies = [];
+  var movies = [];
 
   const renderMovies = function() {
     $('#listings').empty();
@@ -58,7 +58,7 @@
     }
   };
 
-  let searchURL = ""
+
 
   const getMovies = (event) => {
     event.preventDefault()
@@ -67,13 +67,14 @@
 
     console.log("ima get movies");
     let baseURL = "https://omdb-api.now.sh/?s="
-    searchURL = baseURL + encodeURIComponent($('#search')[0].value)
+    let searchURL = baseURL + encodeURIComponent($('#search')[0].value)
     console.log("searchURL = " + searchURL);
     $.getJSON(searchURL, logRequest)
   }
 
   const logRequest = (data) => {
     console.log(data);
+    movies = []
     for (var i = 0; i < data.Search.length; i++) {
       let id, poster, title, year;
 
@@ -88,7 +89,6 @@
         title,
         year
       })
-
     }
 
 
@@ -101,7 +101,7 @@
 
   }
 
-  console.log(searchURL);
+
 
 
   $('form').submit(getMovies)
