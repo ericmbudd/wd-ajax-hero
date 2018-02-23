@@ -69,11 +69,36 @@
     let baseURL = "https://omdb-api.now.sh/?s="
     searchURL = baseURL + encodeURIComponent($('#search')[0].value)
     console.log("searchURL = " + searchURL);
-    $.getJSON(searchURL, sendRequest)
+    $.getJSON(searchURL, logRequest)
   }
 
-  const sendRequest = (data) => {
+  const logRequest = (data) => {
     console.log(data);
+    for (var i = 0; i < data.Search.length; i++) {
+      let id, poster, title, year;
+
+      id = data.Search[i].imdbID
+      poster = data.Search[i].Poster
+      title = data.Search[i].Title
+      year = data.Search[i].Year
+
+      movies.push({
+        id,
+        poster,
+        title,
+        year
+      })
+
+    }
+
+
+
+    console.log(movies);
+
+
+    renderMovies()
+
+
   }
 
   console.log(searchURL);
